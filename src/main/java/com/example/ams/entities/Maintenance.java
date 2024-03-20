@@ -1,13 +1,9 @@
 package com.example.ams.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
-
 
 
 //id SERIAL [pk]
@@ -17,17 +13,13 @@ import java.time.LocalDateTime;
 //date TIMESTAMP
 @Data
 @Entity
-public class MaintenanceDetails {
+public class Maintenance {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @ManyToOne
-    @JoinColumn(name = "owner_id")
-    private User owner;
-
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "apartment_id")
     private Apartment apartment;
 
