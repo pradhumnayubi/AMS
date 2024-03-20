@@ -1,6 +1,6 @@
 package com.example.ams.service;
 
-import com.example.ams.entities.User;
+import com.example.ams.entities.Users;
 import com.example.ams.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
@@ -17,18 +17,18 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
     @Override
-    public User registerUser(User user) {
+    public Users registerUser(Users user) {
         return userRepository.save(user);
     }
 
     @Override
-    public List<User> getAllUsers() {
+    public List<Users> getAllUsers() {
         return userRepository.findAll();
     }
 
     @Override
-    public User getUserById(int userId) throws ChangeSetPersister.NotFoundException {
-        Optional<User> optionalUser = userRepository.findById(userId);
+    public Users getUserById(int userId) throws ChangeSetPersister.NotFoundException {
+        Optional<Users> optionalUser = userRepository.findById(userId);
         if (optionalUser.isPresent()) {
             return optionalUser.get();
         } else {
@@ -37,8 +37,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User updateUser(int userId, User userDetails) throws ChangeSetPersister.NotFoundException {
-        User user = getUserById(userId);
+    public Users updateUser(int userId, Users userDetails) throws ChangeSetPersister.NotFoundException {
+        Users user = getUserById(userId);
         if(Objects.nonNull(userDetails.getName()) && !"".equalsIgnoreCase(userDetails.getName())){
             user.setName(userDetails.getName());
         }
@@ -57,7 +57,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void deleteUser(int userId) throws ChangeSetPersister.NotFoundException {
-        User user = getUserById(userId);
+        Users user = getUserById(userId);
         userRepository.delete(user);
     }
 }

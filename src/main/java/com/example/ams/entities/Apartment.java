@@ -15,8 +15,9 @@ import java.util.List;
 @Entity
 public class Apartment {
 
-    @Id
+
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
     private Integer apartmentId;
     private String address;
 

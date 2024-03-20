@@ -19,7 +19,7 @@ public class AmenityRequest {
 
     @ManyToOne
     @JoinColumn(name = "requester_id")
-    private User requester;
+    private Users requester;
     private String requestType;
 }
 
