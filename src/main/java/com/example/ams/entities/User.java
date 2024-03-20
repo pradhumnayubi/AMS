@@ -1,11 +1,9 @@
 package com.example.ams.entities;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
+import jakarta.persistence.*;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+
 
 //user_id SERIAL [pk]
 //name VARCHAR
@@ -13,18 +11,29 @@ import lombok.NoArgsConstructor;
 //apartment_id INT [ref: > apartments.apartment_id]
 //role enum
 
-@Entity
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
-
-public class Users {
+@Entity
+public class User {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer userId;
     private String userName;
     private String email;
-    private Integer apartmentId;
+
+    @ManyToOne
+    @JoinColumn(name = "apartment_id")
+    private Apartment apartment;
+
+    @Enumerated(EnumType.STRING)
     private Role role;
 }
+
+enum Role {
+
+    OWNER,
+    RESIDENT,
+    GUEST
+}
+
 
 

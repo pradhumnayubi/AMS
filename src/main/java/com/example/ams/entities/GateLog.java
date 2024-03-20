@@ -8,30 +8,30 @@ import lombok.NoArgsConstructor;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
+//log_id SERIAL [pk]
+//user_id int [ref: > users.user_id]
+//check_in_time timestamp
+//check_out_time timestamp
+//apartment_id INT [ref: > apartments.apartment_id]
 
-
-//id SERIAL [pk]
-//owner_id INT //[ref: > owner_resident.owner_id]
-//apartment_id INT [ref: - apartments.apartment_id]
-//amount DECIMAL
-//date TIMESTAMP
 @Data
 @Entity
-public class MaintenanceDetails {
+public class GateLog {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private int logId;
 
     @ManyToOne
-    @JoinColumn(name = "owner_id")
-    private User owner;
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    private Timestamp checkInTime;
+
+    private Timestamp checkOutTime;
 
     @ManyToOne
     @JoinColumn(name = "apartment_id")
     private Apartment apartment;
-
-    private Double amount;
-
-    private Timestamp date;
 }
+

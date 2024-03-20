@@ -1,7 +1,6 @@
 package com.example.ams.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,14 +10,17 @@ import lombok.NoArgsConstructor;
 //type VARCHAR
 //apartment_id INT [ref: > apartments.apartment_id]
 
-@Entity
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
-public class Vendors {
+@Entity
+public class Vendor {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer vendorId;
+    private String name;
     private String type;
-    private Integer apartmentId;
+
+    @ManyToOne
+    @JoinColumn(name = "apartment_id")
+    private Apartment apartment;
 
 }
