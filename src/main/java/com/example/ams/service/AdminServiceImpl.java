@@ -20,10 +20,10 @@ public class AdminServiceImpl implements AdminService{
         return adminRepository.save(admin);
     }
 
-    @Override
-    public Admin authenticateAdmin(String username, String password) {
-        return adminRepository.findByUsernameAndPassword(username, password);
-    }
+//    @Override
+//    public Admin authenticateAdmin(String username, String password) {
+//        return adminRepository.findByUsernameAndPassword(username, password);
+//    }
 
     @Override
     public List<Admin> getAllAdmins() {

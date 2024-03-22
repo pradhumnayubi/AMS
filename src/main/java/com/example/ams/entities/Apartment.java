@@ -6,35 +6,39 @@ import lombok.*;
 
 import java.util.List;
 
-//apartment_id SERIAL [pk]
-//name VARCHAR
-//address VARCHAR
-//amenities array
-//layout enum
+
 @Data
 @Entity
 public class Apartment {
 
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Integer apartmentId;
     private String address;
 
-    @ElementCollection
-    private List<String> amenities;
-
     @Enumerated(EnumType.STRING)
     private Layout layout;
-}
 
-enum Layout {
-    SINGLE_ROOM,
-    ONE_BHK,
-    TWO_BHK,
-    THREE_BHK,
-    DUPLEX,
-    PENTHOUSE
+    @OneToMany(mappedBy = "apartment", cascade = CascadeType.PERSIST)
+    private List<User> users;
+
+//    @OneToMany(mappedBy = "apartment", cascade = CascadeType.REMOVE)
+//    private List<GateLog> gateLogs;
+//
+//    @OneToMany(mappedBy = "apartment", cascade = CascadeType.PERSIST)
+//    private List<Vendor> vendors;
+
+    @OneToOne(mappedBy = "apartment", cascade = CascadeType.ALL)
+    private Maintenance maintenance;
+    private enum Layout {
+        SINGLE_ROOM,
+        ONE_BHK,
+        TWO_BHK,
+        THREE_BHK,
+        DUPLEX,
+        PENTHOUSE
+    }
 }
 
 

@@ -1,14 +1,10 @@
 package com.example.ams.entities;
 
-
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import java.util.List;
 
-// req_id SERIAL [pk]
-//    requester_id INT [ref: > users.user_id]
-//    request_type VARCHAR
+
 @Data
 @Entity
 public class AmenityRequest {
@@ -17,10 +13,14 @@ public class AmenityRequest {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer reqId;
 
+    private String requestType;
+
     @ManyToOne
     @JoinColumn(name = "requester_id")
-    private Users requester;
-    private String requestType;
+    private User user;
+
+    @OneToMany(mappedBy = "amenityRequest", cascade = CascadeType.PERSIST)
+    List<JobSheet> jobSheets;
 }
 
 

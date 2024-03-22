@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface AdminService {
     public Admin registerAdmin(Admin admin);
-    public Admin authenticateAdmin(String username, String password);
+//    public Admin authenticateAdmin(String username, String password);
     public List<Admin> getAllAdmins();
     public Admin getAdminById(int adminId) throws ChangeSetPersister.NotFoundException;
     public Admin updateAdmin(int adminId, Admin adminDetails);

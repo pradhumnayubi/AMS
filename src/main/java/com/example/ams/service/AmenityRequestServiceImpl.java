@@ -42,8 +42,8 @@ public class AmenityRequestServiceImpl implements AmenityRequestService{
         if(Objects.nonNull(requestDetails) && !"".equalsIgnoreCase(requestDetails.getRequestType())) {
             request.setRequestType(requestDetails.getRequestType());
         }
-        if(Objects.nonNull(requestDetails.getRequester())){
-            request.setRequester(requestDetails.getRequester());
+        if(Objects.nonNull(requestDetails.getUser())){
+            request.setUser(requestDetails.getUser());
         }
         // Update other fields as needed
         return amenityRequestRepository.save(request);

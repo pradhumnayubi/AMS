@@ -5,10 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-//vendor_id SERIAL [pk]
-//name VARCHAR
-//type VARCHAR
-//apartment_id INT [ref: > apartments.apartment_id]
+import java.util.List;
 
 @Data
 @Entity
@@ -22,5 +19,8 @@ public class Vendor {
     @ManyToOne
     @JoinColumn(name = "apartment_id")
     private Apartment apartment;
+
+    @OneToMany(mappedBy = "vendor", cascade = CascadeType.PERSIST)
+    List<JobSheet> jobSheets;
 
 }

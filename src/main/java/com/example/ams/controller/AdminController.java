@@ -2,7 +2,7 @@ package com.example.ams.controller;
 
 import com.example.ams.entities.Admin;
 import com.example.ams.entities.Apartment;
-import com.example.ams.entities.Users;
+import com.example.ams.entities.User;
 import com.example.ams.service.AdminService;
 import com.example.ams.service.ApartmentService;
 import com.example.ams.service.UserService;
@@ -28,13 +28,17 @@ public class AdminController {
     @Autowired
     private ApartmentService apartmentService;
 
-    @PostMapping
+    @PostMapping("/register")
     public ResponseEntity<Admin> createAdmin(@RequestBody Admin admin) {
         Admin createdAdmin = adminService.registerAdmin(admin);
         return new ResponseEntity<>(createdAdmin, HttpStatus.CREATED);
     }
+//    @PostMapping("/admins")
+//    public Admin createAdmin(@RequestBody Admin admin){
+//        return adminService.registerAdmin(admin);
+//    }
 
-    @GetMapping
+    @GetMapping()
     public ResponseEntity<List<Admin>> getAllAdmins() {
         List<Admin> admins = adminService.getAllAdmins();
         return new ResponseEntity<>(admins, HttpStatus.OK);
@@ -59,16 +63,16 @@ public class AdminController {
     }
 
     @PostMapping("/registerUser")
-    public ResponseEntity<Users> createUser(@RequestBody Users user) {
-        if (user.getApartment() != null && user.getApartment().getApartmentId() == 0) {
-            // If apartment is not saved, save it first
-            Apartment savedApartment = apartmentService.registerApartment(user.getApartment());
-            // Set the saved apartment to the user object
-            user.setApartment(savedApartment);
-        }
+    public ResponseEntity<User> createUser(@RequestBody User user) {
+//        if (user.getApartment() != null && user.getApartment().getApartmentId() == 0) {
+//            // If apartment is not saved, save it first
+//            Apartment savedApartment = apartmentService.registerApartment(user.getApartment());
+//            // Set the saved apartment to the user object
+//            user.setApartment(savedApartment);
+//        }
 
         // Create the user
-        Users createdUser = userService.registerUser(user);
+        User createdUser = userService.registerUser(user);
         return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
     }
 

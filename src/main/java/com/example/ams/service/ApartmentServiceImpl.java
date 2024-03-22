@@ -16,7 +16,6 @@ public class ApartmentServiceImpl implements ApartmentService{
 
     @Override
     public Apartment registerApartment(Apartment apartment) {
-
         return apartmentRepository.save(apartment);
     }
 
