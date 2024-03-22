@@ -1,6 +1,7 @@
 package com.example.ams.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Data;
@@ -30,9 +31,9 @@ public class User {
         GUEST
     }
 
-//    @Getter(AccessLevel.NONE)
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "apartment_id")
+    @JsonIgnoreProperties("users")
     private Apartment apartment;
 
 //    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)

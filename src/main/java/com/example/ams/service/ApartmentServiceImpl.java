@@ -1,6 +1,7 @@
 package com.example.ams.service;
 
 import com.example.ams.entities.Apartment;
+import com.example.ams.entities.User;
 import com.example.ams.repository.ApartmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
@@ -52,5 +53,6 @@ public class ApartmentServiceImpl implements ApartmentService{
         Apartment apartment = getApartmentById(apartmentId);
         apartmentRepository.delete(apartment);
     }
+
 }
 

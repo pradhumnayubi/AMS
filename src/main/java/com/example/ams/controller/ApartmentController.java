@@ -4,6 +4,7 @@ package com.example.ams.controller;
 //}
 
 import com.example.ams.entities.Apartment;
+import com.example.ams.entities.User;
 import com.example.ams.service.ApartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;

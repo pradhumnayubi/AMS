@@ -34,20 +34,20 @@ public class UserController {
 
     // User cannot create another user, so we omit the create method
 
-    @PostMapping
-    public ResponseEntity<User> createUser(@RequestBody User user) {
-        // Check if the apartment in the user object is already saved or not
+//    @PostMapping
+//    public ResponseEntity<User> createUser(@RequestBody User user) {
+//        // Check if the apartment in the user object is already saved or not
 //        if (user.getApartment() != null && user.getApartment().getApartmentId() == null) {
 //            // If apartment is not saved, save it first
 //            Apartment savedApartment = apartmentService.registerApartment(user.getApartment());
 //            // Set the saved apartment to the user object
 //            user.setApartment(savedApartment);
 //        }
-
-        // Create the user
-        User createdUser = userService.registerUser(user);
-        return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
-    }
+//
+//        // Create the user
+//        User createdUser = userService.registerUser(user);
+//        return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
+//    }
 
     @PutMapping("/{id}")
     public ResponseEntity<User> updateUser(@PathVariable("id") int id, @RequestBody User userDetails) throws ChangeSetPersister.NotFoundException {
