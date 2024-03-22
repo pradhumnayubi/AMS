@@ -3,9 +3,12 @@ package com.example.ams.service;
 import com.example.ams.entities.Apartment;
 import com.example.ams.entities.User;
 import com.example.ams.repository.ApartmentRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -53,6 +56,17 @@ public class ApartmentServiceImpl implements ApartmentService{
         Apartment apartment = getApartmentById(apartmentId);
         apartmentRepository.delete(apartment);
     }
+
+//    @Override
+//    @Transactional(readOnly = true)
+//    public List<User> getUsersByApartmentId(int apartmentId) {
+//        // Retrieve the apartment entity by its ID
+//        Apartment apartment = apartmentRepository.findById(apartmentId)
+//                .orElseThrow(() -> new EntityNotFoundException("Apartment not found with id: " + apartmentId));
+//
+//        // Return the list of users associated with the apartment
+//        return apartment.getUsers();
+//    }
 
 }
 

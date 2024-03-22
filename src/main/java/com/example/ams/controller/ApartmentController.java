@@ -32,11 +32,11 @@ public class ApartmentController {
         return new ResponseEntity<>(apartment, HttpStatus.OK);
     }
 
-    @PostMapping
-    public ResponseEntity<Apartment> createApartment(@RequestBody Apartment apartment) {
-        Apartment createdApartment = apartmentService.registerApartment(apartment);
-        return new ResponseEntity<>(createdApartment, HttpStatus.CREATED);
-    }
+//    @PostMapping
+//    public ResponseEntity<Apartment> createApartment(@RequestBody Apartment apartment) {
+//        Apartment createdApartment = apartmentService.registerApartment(apartment);
+//        return new ResponseEntity<>(createdApartment, HttpStatus.CREATED);
+//    }
 
     @PutMapping("/{id}")
     public ResponseEntity<Apartment> updateApartment(@PathVariable("id") int id, @RequestBody Apartment apartmentDetails) throws ChangeSetPersister.NotFoundException {

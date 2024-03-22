@@ -1,5 +1,6 @@
 package com.example.ams.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -20,10 +21,12 @@ public class GateLog {
 
     @ManyToOne
     @JoinColumn(name = "apartment_id")
+    @JsonIgnoreProperties({"gateLogs","users"})
     private Apartment apartment;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @JsonIgnoreProperties({"gateLogs","apartment"})
     private User user;
 }
 

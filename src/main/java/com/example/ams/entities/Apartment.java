@@ -14,7 +14,7 @@ import java.util.List;
 public class Apartment {
 
 
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Integer apartmentId;
     private String address;
@@ -22,19 +22,20 @@ public class Apartment {
     @Enumerated(EnumType.STRING)
     private Layout layout;
 
-//    @JsonIgnore
-    @OneToMany(mappedBy = "apartment", fetch = FetchType.LAZY)
-    @JsonIgnoreProperties("apartment")
+
+    @OneToMany(mappedBy = "apartment", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIgnoreProperties({"apartment","gateLogs"})
     private List<User> users;
 
-//    @OneToMany(mappedBy = "apartment", cascade = CascadeType.REMOVE)
-//    private List<GateLog> gateLogs;
+    @OneToMany(mappedBy = "apartment", cascade = CascadeType.REMOVE)
+    @JsonIgnoreProperties({"apartment","user"})
+    private List<GateLog> gateLogs;
 //
 //    @OneToMany(mappedBy = "apartment", cascade = CascadeType.PERSIST)
 //    private List<Vendor> vendors;
 
-    @OneToOne(mappedBy = "apartment", cascade = CascadeType.ALL)
-    private Maintenance maintenance;
+//    @OneToOne(mappedBy = "apartment", cascade = CascadeType.ALL)
+//    private Maintenance maintenance;
     private enum Layout {
         SINGLE_ROOM,
         ONE_BHK,

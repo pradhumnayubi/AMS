@@ -64,14 +64,6 @@ public class AdminController {
 
     @PostMapping("/registerUser")
     public ResponseEntity<User> createUser(@RequestBody User user) {
-        if (user.getApartment() != null && user.getApartment().getApartmentId() == 0) {
-            // If apartment is not saved, save it first
-            Apartment savedApartment = apartmentService.registerApartment(user.getApartment());
-            // Set the saved apartment to the user object
-            user.setApartment(savedApartment);
-        }
-
-        // Create the user
         User createdUser = userService.registerUser(user);
         return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
     }

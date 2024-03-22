@@ -31,13 +31,14 @@ public class User {
         GUEST
     }
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "apartment_id")
-    @JsonIgnoreProperties("users")
+    @JsonIgnoreProperties({"users","gateLogs"})
     private Apartment apartment;
 
-//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-//    private List<GateLog> gateLogs;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("user")
+    private List<GateLog> gateLogs;
 //
 //    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 //    private List<AmenityRequest> amenityRequests;
