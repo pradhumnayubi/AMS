@@ -1,12 +1,28 @@
 package com.example.ams.service;
 
 import com.example.ams.entities.GateLog;
+import com.example.ams.entities.User;
 import org.springframework.data.crossstore.ChangeSetPersister;
 
+import java.sql.Timestamp;
 import java.util.List;
+import java.util.Optional;
 
 public interface GateLogService {
-    public GateLog logGateActivity(GateLog gateLog);
+
+
+//    GateLog logCheckIn(int userId, Timestamp checkInTime);
+//
+//    GateLog logCheckOut(int userId, Timestamp checkOutTime);
+//
+//    Optional<GateLog> findLatestGateLogByUserId(int userId);
+
+    GateLog logCheckIn(User user);
+    GateLog logCheckOut(User user);
+
+
+
+
     public List<GateLog> getAllGateLogs();
     public GateLog getGateLogById(int logId) throws ChangeSetPersister.NotFoundException;
     public GateLog updateGateLog(int logId, GateLog gateLogDetails) throws ChangeSetPersister.NotFoundException;

@@ -19,14 +19,15 @@ public class GateLog {
 
     private Timestamp checkOutTime;
 
-    @ManyToOne
-    @JoinColumn(name = "apartment_id")
-    @JsonIgnoreProperties({"gateLogs","users","layout"})
-    private Apartment apartment;
+//    @ManyToOne
+//    @JoinColumn(name = "apartment_id")
+//    @JsonIgnoreProperties({"gateLogs","users","layout"})
+//    private Apartment apartment;
 
-    @ManyToOne
+    @ManyToOne()
     @JoinColumn(name = "user_id")
     @JsonIgnoreProperties({"gateLogs","apartment","email"})
     private User user;
+
 }
 
