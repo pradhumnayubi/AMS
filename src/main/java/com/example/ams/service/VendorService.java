@@ -9,6 +9,9 @@ public interface VendorService {
     public Vendor registerVendor(Vendor vendor);
     public List<Vendor> getAllVendors();
     public Vendor getVendorById(int vendorId) throws ChangeSetPersister.NotFoundException;
+
+    List<Vendor> getVendorsByApartmentId(int apartmentId);
+
     public Vendor updateVendor(int vendorId, Vendor vendorDetails) throws ChangeSetPersister.NotFoundException;
     public void deleteVendor(int vendorId) throws ChangeSetPersister.NotFoundException;
 }

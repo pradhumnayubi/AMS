@@ -9,6 +9,9 @@ import java.util.List;
 public interface JobSheetService {
     public List<JobSheet> getAllJobSheets();
     public JobSheet getJobSheetById(int id) throws ChangeSetPersister.NotFoundException;
+
+//    List<JobSheet> getAllJobSheetsByApartmentId(int apartmentId);
+
     public JobSheet createJobSheet(JobSheet jobSheet);
     public JobSheet updateJobSheet(int id, JobSheet jobSheetDetails) throws ChangeSetPersister.NotFoundException;
     public void deleteJobSheet(int id) throws ChangeSetPersister.NotFoundException;

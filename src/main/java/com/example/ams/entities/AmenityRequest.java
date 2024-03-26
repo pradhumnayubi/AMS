@@ -19,8 +19,8 @@ public class AmenityRequest {
     @JoinColumn(name = "requester_id")
     private User user;
 
-    @OneToMany(mappedBy = "amenityRequest", cascade = CascadeType.PERSIST)
-    List<JobSheet> jobSheets;
+//    @OneToMany(mappedBy = "amenityRequest", cascade = CascadeType.PERSIST)
+//    List<JobSheet> jobSheets;
 }
 
 

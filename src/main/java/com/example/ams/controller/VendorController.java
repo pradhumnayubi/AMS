@@ -28,6 +28,12 @@ public class VendorController {
         return new ResponseEntity<>(vendor, HttpStatus.OK);
     }
 
+    @GetMapping("/apartment/{apartmentId}")
+    public ResponseEntity<List<Vendor>> getVendorsByApartmentId(@PathVariable int apartmentId) {
+        List<Vendor> vendors = vendorService.getVendorsByApartmentId(apartmentId);
+        return new ResponseEntity<>(vendors, HttpStatus.OK);
+    }
+
     @PostMapping
     public ResponseEntity<Vendor> createVendor(@RequestBody Vendor vendor) {
         Vendor createdVendor = vendorService.registerVendor(vendor);

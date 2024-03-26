@@ -9,6 +9,9 @@ public interface AmenityRequestService {
     public AmenityRequest raiseRequest(AmenityRequest request);
     public List<AmenityRequest> getAllRequests();
     public AmenityRequest getRequestById(int requestId) throws ChangeSetPersister.NotFoundException;
+
+    List<AmenityRequest> getRequestsByUserId(int userId);
+
     public AmenityRequest updateRequest(int requestId, AmenityRequest requestDetails) throws ChangeSetPersister.NotFoundException;
     public void deleteRequest(int requestId) throws ChangeSetPersister.NotFoundException;
 }

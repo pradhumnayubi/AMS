@@ -36,6 +36,11 @@ public class VendorServiceImpl implements VendorService{
     }
 
     @Override
+    public List<Vendor> getVendorsByApartmentId(int apartmentId) {
+        return vendorRepository.findByApartmentApartmentId(apartmentId);
+    }
+
+    @Override
     public Vendor updateVendor(int vendorId, Vendor vendorDetails) throws ChangeSetPersister.NotFoundException {
         Vendor vendor = getVendorById(vendorId);
 //        if(Objects.nonNull(adminDetails.getUsername()) && !"".equalsIgnoreCase(adminDetails.getUsername())){

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class AmenityRequestServiceImpl implements AmenityRequestService{
@@ -34,6 +35,11 @@ public class AmenityRequestServiceImpl implements AmenityRequestService{
         } else {
             throw new ChangeSetPersister.NotFoundException();
         }
+    }
+
+    @Override
+    public List<AmenityRequest> getRequestsByUserId(int userId) {
+        return amenityRequestRepository.findByUserUserId(userId);
     }
 
     @Override

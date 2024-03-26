@@ -23,13 +23,13 @@ public class Apartment {
     private Layout layout;
 
 
-    @OneToMany(mappedBy = "apartment", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JsonIgnoreProperties({"apartment","gateLogs"})
-    private List<User> users;
-
-    @OneToMany(mappedBy = "apartment", cascade = CascadeType.REMOVE)
-    @JsonIgnoreProperties({"apartment","user"})
-    private List<GateLog> gateLogs;
+//    @OneToMany(mappedBy = "apartment", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    @JsonIgnoreProperties({"apartment","gateLogs"})
+//    private List<User> users;
+//
+//    @OneToMany(mappedBy = "apartment", cascade = CascadeType.REMOVE)
+//    @JsonIgnoreProperties({"apartment","user"})
+//    private List<GateLog> gateLogs;
 //
 //    @OneToMany(mappedBy = "apartment", cascade = CascadeType.PERSIST)
 //    private List<Vendor> vendors;

@@ -23,9 +23,15 @@ public class MaintenanceController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Maintenance> getMaintenanceDetailsById(@PathVariable("id") int id) throws ChangeSetPersister.NotFoundException {
+    public ResponseEntity<Maintenance> getMaintenanceDetailsByAId(@PathVariable("id") int id) throws ChangeSetPersister.NotFoundException {
         Maintenance maintenanceDetails = maintenanceService.getMaintenanceDetailsById(id);
         return new ResponseEntity<>(maintenanceDetails, HttpStatus.OK);
+    }
+
+    @GetMapping("/apartment/{apartmentId}")
+    public ResponseEntity<List<Maintenance>> getMaintenanceByApartmentId(@PathVariable("apartmentId") int apartmentId) {
+        List<Maintenance> maintenanceList = maintenanceService.getMaintenanceDetailsByApartmentId(apartmentId);
+        return new ResponseEntity<>(maintenanceList, HttpStatus.OK);
     }
 
     @PostMapping

@@ -36,9 +36,9 @@ public class User {
     @JsonIgnoreProperties({"users","gateLogs"})
     private Apartment apartment;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    @JsonIgnoreProperties("user")
-    private List<GateLog> gateLogs;
+//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+//    @JsonIgnoreProperties("user")
+//    private List<GateLog> gateLogs;
 //
 //    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 //    private List<AmenityRequest> amenityRequests;

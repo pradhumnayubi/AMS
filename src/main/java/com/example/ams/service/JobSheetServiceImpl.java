@@ -31,6 +31,11 @@ public class JobSheetServiceImpl implements JobSheetService{
         }
     }
 
+//    @Override
+//    public List<JobSheet> getAllJobSheetsByApartmentId(int apartmentId) {
+//        return jobSheetRepository.findByAmenityRequest_Apartment_ApartmentId(apartmentId);
+//    }
+
     @Override
     public JobSheet createJobSheet(JobSheet jobSheet) {
         return jobSheetRepository.save(jobSheet);

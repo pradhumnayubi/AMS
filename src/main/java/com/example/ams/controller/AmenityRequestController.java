@@ -28,6 +28,12 @@ public class AmenityRequestController {
         return new ResponseEntity<>(request, HttpStatus.OK);
     }
 
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<AmenityRequest>> getRequestsByUserId(@PathVariable int userId) {
+        List<AmenityRequest> requests = amenityRequestService.getRequestsByUserId(userId);
+        return new ResponseEntity<>(requests, HttpStatus.OK);
+    }
+
     @PostMapping
     public ResponseEntity<AmenityRequest> createRequest(@RequestBody AmenityRequest request) {
         AmenityRequest createdRequest = amenityRequestService.raiseRequest(request);

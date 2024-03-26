@@ -1,6 +1,7 @@
 package com.example.ams.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Data;
 import java.sql.Timestamp;
@@ -18,10 +19,12 @@ public class JobSheet {
 
     @ManyToOne
     @JoinColumn(name = "amenity_request_id")
+    @JsonIgnoreProperties({"user"})
     private AmenityRequest amenityRequest;
 
     @ManyToOne
     @JoinColumn(name = "vendor_id")
+
     private Vendor vendor;
     enum Status{
         WAITING,

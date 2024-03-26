@@ -28,6 +28,12 @@ public class JobSheetController {
         return new ResponseEntity<>(jobSheet, HttpStatus.OK);
     }
 
+//    @GetMapping("/apartment/{apartmentId}")
+//    public ResponseEntity<List<JobSheet>> getAllJobSheetsByApartmentId(@PathVariable int apartmentId) {
+//        List<JobSheet> jobSheets = jobSheetService.getAllJobSheetsByApartmentId(apartmentId);
+//        return new ResponseEntity<>(jobSheets, HttpStatus.OK);
+//    }
+
     @PostMapping
     public ResponseEntity<JobSheet> createJobSheet(@RequestBody JobSheet jobSheet) {
         JobSheet createdJobSheet = jobSheetService.createJobSheet(jobSheet);

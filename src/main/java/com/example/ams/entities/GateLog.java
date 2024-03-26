@@ -21,12 +21,12 @@ public class GateLog {
 
     @ManyToOne
     @JoinColumn(name = "apartment_id")
-    @JsonIgnoreProperties({"gateLogs","users"})
+    @JsonIgnoreProperties({"gateLogs","users","layout"})
     private Apartment apartment;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    @JsonIgnoreProperties({"gateLogs","apartment"})
+    @JsonIgnoreProperties({"gateLogs","apartment","email"})
     private User user;
 }
 
