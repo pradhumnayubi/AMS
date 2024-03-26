@@ -70,10 +70,10 @@ public class GateLogServiceImpl implements GateLogService {
         }
 
         // Check if the user has already checked out
-        Optional<GateLog> lastCheckOut = gateLogRepository.findLastCheckOut(user);
-        if (lastCheckOut.isPresent()) {
-            throw new IllegalStateException("User has already checked out");
-        }
+//        Optional<GateLog> lastCheckOut = gateLogRepository.findLastCheckOut(user);
+//        if (lastCheckOut.isPresent()) {
+//            throw new IllegalStateException("User has already checked out");
+//        }
 
         // Update the check-out time of the last check-in entry
         GateLog checkInEntry = lastCheckIn.get();

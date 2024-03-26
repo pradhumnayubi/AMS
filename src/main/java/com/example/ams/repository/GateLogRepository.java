@@ -23,8 +23,8 @@ public interface GateLogRepository extends JpaRepository<GateLog,Integer> {
     @Query("SELECT g FROM GateLog g WHERE g.user = :user AND g.checkOutTime IS NULL ORDER BY g.checkInTime DESC")
     Optional<GateLog> findLastCheckIn(@Param("user") User user);
 
-    @Query("SELECT g FROM GateLog g WHERE g.user = :user AND g.checkOutTime IS NOT NULL ORDER BY g.checkOutTime DESC")
-    Optional<GateLog> findLastCheckOut(@Param("user") User user);
+//    @Query(nativeQuery = true,value = "SELECT g FROM GateLog g WHERE g.user = :user AND g.checkInTime IS NOT NULL ORDER BY g.checkInTime DESC LIMIT 1")
+//    Optional<GateLog> findLastCheckOut(@Param("user") User user);
 
 
 }

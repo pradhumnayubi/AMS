@@ -1,6 +1,6 @@
 package com.example.ams.entities;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.Data;
 
 import java.sql.Timestamp;

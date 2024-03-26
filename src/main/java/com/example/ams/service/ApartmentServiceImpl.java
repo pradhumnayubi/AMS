@@ -3,7 +3,7 @@ package com.example.ams.service;
 import com.example.ams.entities.Apartment;
 import com.example.ams.entities.User;
 import com.example.ams.repository.ApartmentRepository;
-import jakarta.persistence.EntityNotFoundException;
+import javax.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;

@@ -27,4 +27,6 @@ public interface GateLogService {
     public GateLog getGateLogById(int logId) throws ChangeSetPersister.NotFoundException;
     public GateLog updateGateLog(int logId, GateLog gateLogDetails) throws ChangeSetPersister.NotFoundException;
     public  void deleteGateLog(int logId) throws ChangeSetPersister.NotFoundException;
+
+//    User findMostActiveUser();
 }
