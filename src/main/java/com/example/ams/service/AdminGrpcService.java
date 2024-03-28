@@ -22,35 +22,38 @@ public class AdminGrpcService extends AdminServiceGrpc.AdminServiceImplBase {
 
     @Override
     public void registerAdmin(AdminDetails request, StreamObserver<AdminDetails> responseObserver) {
-        AdminDetails admin = AdminDetails.newBuilder()
+        AdminDetails adminDetails = AdminDetails.newBuilder()
                 .setUsername(request.getUsername())
                 .setPassword(request.getPassword())
                 .build();
-        Admin newAdmin = new com.example.ams.entities.Admin();
-        newAdmin.setUsername(admin.getUsername());
-        newAdmin.setPassword(admin.getPassword());
-        newAdmin.setAdminId(admin.getAdminId());
+        Admin admin = new Admin();
+        admin.setUsername(adminDetails.getUsername());
+        admin.setPassword(adminDetails.getPassword());
+        admin.setAdminId(adminDetails.getAdminId());
 
-        adminRepository.save(newAdmin);
+        adminRepository.save(admin);
 
-        responseObserver.onNext(admin);
+        responseObserver.onNext(adminDetails);
         responseObserver.onCompleted();
 
     }
 
     @Override
     public void getAllAdmins(Empty request, StreamObserver<AdminList> responseObserver) {
-        List<Admin> admins = adminRepository.findAll();
+//
         AdminList.Builder adminListBuilder = AdminList.newBuilder();
-        admins.forEach(admin -> {
-            adminListBuilder.addAdminId(admin.getAdminId());
-            adminListBuilder.addUserName(admin.getUsername());
-            adminListBuilder.addPassword(admin.getPassword());
-        });
-//        AdminList adminList = AdminList.newBuilder()
-//                .addAllAdmins(admins)
-//                .build();
-
+        List<Admin> admins = adminRepository.findAll();
+        admins.forEach(
+                adminDetails -> {
+                    AdminDetails admin = AdminDetails.newBuilder()
+                            .setAdminId(adminDetails.getAdminId())
+                            .setUsername(adminDetails.getUsername())
+                            .setPassword(adminDetails.getPassword())
+                            .build();
+                    adminListBuilder.addAdmins(admin);
+                }
+        );
+//
         responseObserver.onNext(adminListBuilder.build());
         responseObserver.onCompleted();
     }

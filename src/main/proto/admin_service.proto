@@ -35,8 +35,8 @@ message DeleteAdminRequest {
 }
 
 message AdminList {
-//  repeated AdminDetails admins = 1;
-  repeated int32 adminId = 1;
-  repeated string userName = 2;
-  repeated string password = 3;
+  repeated AdminDetails admins = 1;
+//  repeated int32 adminId = 1;
+//  repeated string userName = 2;
+//  repeated string password = 3;
 }
