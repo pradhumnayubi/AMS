@@ -1,33 +1,33 @@
-//package com.example.ams.controller;
-//
-//import com.example.ams.entities.Admin;
-//import com.example.ams.entities.Apartment;
-//import com.example.ams.entities.User;
+package com.example.ams.controller;
+
+import com.example.ams.entities.Admin;
+import com.example.ams.entities.Apartment;
+import com.example.ams.entities.User;
 //import com.example.ams.service.AdminService;
 //import com.example.ams.service.ApartmentService;
-//import com.example.ams.service.UserService;
-//
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.data.crossstore.ChangeSetPersister;
-//import org.springframework.http.HttpStatus;
-//import org.springframework.http.ResponseEntity;
-//import org.springframework.web.bind.annotation.*;
-//
-//import java.util.List;
-//
-//@RestController
-//@RequestMapping("/admins")
-//public class AdminController {
-//
+import com.example.ams.service.UserService;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/admins")
+public class AdminController {
+
 //    @Autowired
 //    private AdminService adminService;
-//
-//    @Autowired
-//    private UserService userService;
-//
+
+    @Autowired
+    private UserService userService;
+
 //    @Autowired
 //    private ApartmentService apartmentService;
-//
+
 //    @PostMapping("/register")
 //    public ResponseEntity<Admin> createAdmin(@RequestBody Admin admin) {
 //        Admin createdAdmin = adminService.registerAdmin(admin);
@@ -61,11 +61,11 @@
 //        adminService.deleteAdmin(id);
 //        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 //    }
-//
-//    @PostMapping("/registerUser")
-//    public ResponseEntity<User> createUser(@RequestBody User user) {
-//        User createdUser = userService.registerUser(user);
-//        return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
-//    }
-//
-//}
+
+    @PostMapping("/registerUser")
+    public ResponseEntity<User> createUser(@RequestBody User user) {
+        User createdUser = userService.registerUser(user);
+        return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
+    }
+
+}

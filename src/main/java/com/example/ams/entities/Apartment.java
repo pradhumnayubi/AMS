@@ -22,6 +22,8 @@ public class Apartment {
     @Enumerated(EnumType.STRING)
     private Layout layout;
 
+    @OneToOne(mappedBy = "apartment", cascade = CascadeType.PERSIST)
+    private Maintenance maintenance;
 
 //    @OneToMany(mappedBy = "apartment", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 //    @JsonIgnoreProperties({"apartment","gateLogs"})

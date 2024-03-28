@@ -6,6 +6,7 @@ import lombok.Data;
 import java.sql.Timestamp;
 
 
+
 @Data
 @Entity
 public class Maintenance {
@@ -16,7 +17,7 @@ public class Maintenance {
 
     private Double amount;
 
-    private Timestamp date;
+    private Timestamp dueDate;
 
     @OneToOne
     @JoinColumn(name = "apartment_id")
@@ -25,8 +26,9 @@ public class Maintenance {
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    enum Status{
+    public enum Status{
         PAID,
         PENDING
     }
+
 }

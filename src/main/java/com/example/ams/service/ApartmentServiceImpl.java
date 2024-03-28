@@ -1,14 +1,19 @@
 package com.example.ams.service;
 
 import com.example.ams.entities.Apartment;
+import com.example.ams.entities.Maintenance;
 import com.example.ams.entities.User;
 import com.example.ams.repository.ApartmentRepository;
 import javax.persistence.EntityNotFoundException;
+
+import com.example.ams.repository.MaintenanceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -18,9 +23,28 @@ public class ApartmentServiceImpl implements ApartmentService{
     @Autowired
     private ApartmentRepository apartmentRepository;
 
+    @Autowired
+    private MaintenanceRepository maintenanceRepository;
+
     @Override
     public Apartment registerApartment(Apartment apartment) {
-        return apartmentRepository.save(apartment);
+
+        Apartment savedApartment = apartmentRepository.save(apartment);
+
+        // Create a new Maintenance record for the apartment
+        Maintenance maintenance = new Maintenance();
+        maintenance.setApartment(savedApartment);
+        // Set default values for amount, date, status
+        maintenance.setAmount(1000.0); // Default amount
+        LocalDateTime currentDate = LocalDateTime.now();
+        LocalDateTime dueDate = currentDate.plusMonths(1);
+        maintenance.setDueDate(Timestamp.valueOf(dueDate)); // Due date 1 month from current date
+        maintenance.setStatus(Maintenance.Status.PENDING); // Default status
+
+        // Save the Maintenance record
+        maintenanceRepository.save(maintenance);
+
+        return savedApartment;
     }
 
 
