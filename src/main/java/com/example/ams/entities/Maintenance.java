@@ -21,4 +21,12 @@ public class Maintenance {
     @OneToOne
     @JoinColumn(name = "apartment_id")
     private Apartment apartment;
+
+    @Enumerated(EnumType.STRING)
+    private Status status;
+
+    enum Status{
+        PAID,
+        PENDING
+    }
 }

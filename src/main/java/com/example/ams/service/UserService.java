@@ -12,4 +12,7 @@ public interface UserService {
     public User getUserById(int userId) throws ChangeSetPersister.NotFoundException;
     public User updateUser(int userId, User userDetails) throws ChangeSetPersister.NotFoundException;
     public void deleteUser(int userId) throws ChangeSetPersister.NotFoundException;
+
+
+    List<User> findUsersByIds(List<Integer> userIds);
 }

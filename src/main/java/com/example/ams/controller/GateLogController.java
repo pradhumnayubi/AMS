@@ -5,11 +5,13 @@ import com.example.ams.entities.User;
 import com.example.ams.service.GateLogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -66,5 +68,27 @@ public class GateLogController {
     public ResponseEntity<Void> deleteGateLog(@PathVariable("id") int id) throws ChangeSetPersister.NotFoundException {
         gateLogService.deleteGateLog(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("/mostActive")
+    public ResponseEntity<User> findMostActiveUser() throws ChangeSetPersister.NotFoundException {
+        User mostActiveUser = gateLogService.findMostActiveUser();
+        return new ResponseEntity<>(mostActiveUser, HttpStatus.OK);
+
+
+    }
+
+    @GetMapping("/suspects")
+    public ResponseEntity<List<User>> findSuspectUsers(
+            @RequestParam("crimeStartTime") @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime crimeStartTime,
+            @RequestParam("crimeEndTime") @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime crimeEndTime) {
+        // Convert LocalDateTime to Timestamp
+        Timestamp crimeStartTimestamp = Timestamp.valueOf(crimeStartTime);
+        Timestamp crimeEndTimestamp = Timestamp.valueOf(crimeEndTime);
+
+        // Find suspect users based on the specified time range
+        List<User> suspectUsers = gateLogService.findSuspectUsers(crimeStartTimestamp, crimeEndTimestamp);
+
+        return ResponseEntity.ok(suspectUsers);
     }
 }

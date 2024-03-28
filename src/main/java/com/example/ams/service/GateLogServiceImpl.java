@@ -1,4 +1,6 @@
 package com.example.ams.service;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
 import com.example.ams.entities.GateLog;
 import com.example.ams.entities.User;
@@ -18,6 +20,9 @@ public class GateLogServiceImpl implements GateLogService {
 
     @Autowired
     private GateLogRepository gateLogRepository;
+
+    @Autowired
+    private UserService userService;
 
 //    @Override
 //    public GateLog logGateActivity(GateLog gateLog) {
@@ -120,4 +125,40 @@ public class GateLogServiceImpl implements GateLogService {
         GateLog gateLog = getGateLogById(logId);
         gateLogRepository.delete(gateLog);
     }
+
+//    @Override
+//    public User findMostActiveUser() throws ChangeSetPersister.NotFoundException {
+//        // Find the user ID with the most gate logs
+////        Integer mostActiveUserId = gateLogRepository.findMostActiveUserId();
+////        if (mostActiveUserId == null) {
+////            throw new ChangeSetPersister.NotFoundException();
+////        }
+////        // Retrieve the User object based on the most active user ID
+////        return userService.getUserById(mostActiveUserId);
+//    }
+
+    @Override
+    public User findMostActiveUser() throws ChangeSetPersister.NotFoundException {
+        // Call the repository method to find the user IDs with the most gate logs
+        Page<Integer> mostActiveUserIds = gateLogRepository.findMostActiveUserId(PageRequest.of(0,1));
+        if (mostActiveUserIds == null) {
+            throw new ChangeSetPersister.NotFoundException();
+        }
+
+        Integer mostActiveUserId = mostActiveUserIds.getContent().get(0);
+        return userService.getUserById(mostActiveUserId);
+    }
+
+    @Override
+    public List<User> findSuspectUsers(Timestamp crimeStartTime, Timestamp crimeEndTime) {
+        // Find the list of suspect users based on the specified time range
+        List<Integer> suspectUserIds = gateLogRepository.findSuspectUserIds(crimeStartTime, crimeEndTime);
+
+        // Convert user IDs to users
+        List<User> suspectUsers = userService.findUsersByIds(suspectUserIds);
+
+        return suspectUsers;
+    }
+
+
 }
