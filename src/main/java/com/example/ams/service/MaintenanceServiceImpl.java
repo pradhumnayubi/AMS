@@ -70,9 +70,12 @@ public class MaintenanceServiceImpl implements MaintenanceService {
         if (maintenance.getStatus() == Maintenance.Status.PAID) {
             throw new IllegalStateException("Maintenance record is already marked as PAID");
         }
+        if (maintenance.getStatus() == Maintenance.Status.DEFAULTED) {
+            throw new IllegalStateException("Maintenance record is already marked as DEFAULTED");
+        }
 
         // Retrieve all invoices related to the maintenance record
-        List<Invoice> invoices = invoiceRepository.findByMaintenanceId(maintenanceId);
+//        List<Invoice> invoices = invoiceRepository.findByMaintenanceId(maintenanceId);
 
 
         // Calculate the total amount paid from the invoices
@@ -106,7 +109,7 @@ public class MaintenanceServiceImpl implements MaintenanceService {
     @Override
     public void createNextMonthMaintenance() {
         List<Maintenance> existingMaintenances = maintenanceRepository.findAll();
-        for (Maintenance existingMaintenance : existingMaintenances) {
+        existingMaintenances.forEach(existingMaintenance -> {
             LocalDateTime nextDueDate = existingMaintenance.getDueDate().toLocalDateTime().plusMonths(1);
             double nextMonthAmount = 1000.0;
             Double amountPaid = existingMaintenance.getAmountPaid() != null ? existingMaintenance.getAmountPaid() : 0.0;
@@ -128,8 +131,7 @@ public class MaintenanceServiceImpl implements MaintenanceService {
             newMaintenance.setDueDate(Timestamp.valueOf(nextDueDate));
             newMaintenance.setStatus(Maintenance.Status.PENDING);
             maintenanceRepository.save(newMaintenance);
-
-        }
+        });
     }
 }
 
