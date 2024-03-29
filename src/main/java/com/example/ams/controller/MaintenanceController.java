@@ -1,5 +1,6 @@
 package com.example.ams.controller;
 
+
 import com.example.ams.entities.Maintenance;
 import com.example.ams.service.MaintenanceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,11 +17,7 @@ public class MaintenanceController {
     @Autowired
     private MaintenanceService maintenanceService;
 
-    @GetMapping
-    public ResponseEntity<List<Maintenance>> getAllMaintenanceDetails() {
-        List<Maintenance> maintenanceDetailsList = maintenanceService.getAllMaintenanceDetails();
-        return new ResponseEntity<>(maintenanceDetailsList, HttpStatus.OK);
-    }
+
 
     @GetMapping("/{id}")
     public ResponseEntity<Maintenance> getMaintenanceDetailsByAId(@PathVariable("id") int id) throws ChangeSetPersister.NotFoundException {
@@ -34,22 +31,34 @@ public class MaintenanceController {
         return new ResponseEntity<>(maintenanceList, HttpStatus.OK);
     }
 
-    @PostMapping
-    public ResponseEntity<Maintenance> handleMaintenancePayment(@RequestBody Maintenance maintenanceDetails) {
-        maintenanceService.handleMaintenancePayment(maintenanceDetails);
-        return new ResponseEntity<>(HttpStatus.CREATED);
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<Maintenance> updateMaintenanceDetails(@PathVariable("id") int id, @RequestBody Maintenance maintenanceDetails) throws ChangeSetPersister.NotFoundException {
-        Maintenance updatedMaintenanceDetails = maintenanceService.updateMaintenanceDetails(id, maintenanceDetails);
-        return new ResponseEntity<>(updatedMaintenanceDetails, HttpStatus.OK);
-    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteMaintenanceDetails(@PathVariable("id") int id) throws ChangeSetPersister.NotFoundException {
         maintenanceService.deleteMaintenanceDetails(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+    @PostMapping("/payment")
+    public ResponseEntity<String> makePayment(@RequestParam("maintenanceId") int maintenanceId, @RequestParam("amountPaid") Double amountPaid) throws ChangeSetPersister.NotFoundException {
+        Maintenance maintenance = maintenanceService.getMaintenanceDetailsById(maintenanceId);
+        if (maintenance == null) {
+            return new ResponseEntity<>("Maintenance record not found", HttpStatus.NOT_FOUND);
+        }
+
+        maintenanceService.updateMaintenancePayment(maintenanceId, amountPaid);
+        return new ResponseEntity<>("Payment successful", HttpStatus.OK);
+    }
+
+    @PostMapping("/create-next-month")
+    public ResponseEntity<String> createNextMonthMaintenance() {
+        try {
+            maintenanceService.createNextMonthMaintenance();
+            return ResponseEntity.ok("Next month's maintenance records created successfully.");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to create next month's maintenance records: " + e.getMessage());
+        }
+    }
+
+
 }
 

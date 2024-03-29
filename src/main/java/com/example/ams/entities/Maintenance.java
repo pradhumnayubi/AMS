@@ -19,6 +19,8 @@ public class Maintenance {
 
     private Timestamp dueDate;
 
+    private Double amountPaid;
+
     @OneToOne
     @JoinColumn(name = "apartment_id")
     private Apartment apartment;
@@ -28,7 +30,10 @@ public class Maintenance {
 
     public enum Status{
         PAID,
-        PENDING
+        PENDING,
+        PARTIALLY_PAID,
+
+        DEFAULTED
     }
 
 }
