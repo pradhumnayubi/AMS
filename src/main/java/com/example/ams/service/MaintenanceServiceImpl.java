@@ -1,20 +1,30 @@
 package com.example.ams.service;
 
+import com.example.ams.entities.Apartment;
 import com.example.ams.entities.Invoice;
 import com.example.ams.entities.Maintenance;
 import com.example.ams.repository.ApartmentRepository;
 import com.example.ams.repository.InvoiceRepository;
 import com.example.ams.repository.MaintenanceRepository;
+
+import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
+import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.groupingBy;
 
 @Service
 public class MaintenanceServiceImpl implements MaintenanceService {
@@ -33,6 +43,9 @@ public class MaintenanceServiceImpl implements MaintenanceService {
     }
 
 
+
+
+
     @Override
     public Maintenance getMaintenanceDetailsById(int id) throws ChangeSetPersister.NotFoundException {
         Optional<Maintenance> optionalMaintenanceDetails = maintenanceRepository.findById(id);
@@ -41,6 +54,11 @@ public class MaintenanceServiceImpl implements MaintenanceService {
         } else {
             throw new ChangeSetPersister.NotFoundException();
         }
+    }
+
+    @Override
+    public List<Maintenance> getAllMaintenanceDetails() {
+        return maintenanceRepository.findAll();
     }
 
     @Override
@@ -133,5 +151,52 @@ public class MaintenanceServiceImpl implements MaintenanceService {
             maintenanceRepository.save(newMaintenance);
         });
     }
+
+//    public List<Integer> findApartmentsWithMostDefaults(List<Maintenance> maintenanceList) {
+//        // Group maintenance records by apartmentId and count the defaulted records for each apartment
+//        Map<Integer, Long> defaultedCounts = maintenanceList.stream()
+//                .filter(maintenance -> maintenance.getStatus() == Maintenance.Status.DEFAULTED)
+//                .collect(Collectors.groupingBy(maintenance -> maintenance.getApartment().getApartmentId(), Collectors.counting()));
+//
+//        // Find the maximum count of defaulted records
+//        Optional<Long> maxCount = defaultedCounts.values().stream().max(Long::compareTo);
+//
+//        // Find apartmentId(s) with the maximum count of defaulted records
+//        List<Integer> apartmentsWithMostDefaults = new ArrayList<>();
+//        maxCount.ifPresent(max -> {
+//            defaultedCounts.forEach((apartmentId, count) -> {
+//                if (count.equals(max)) {
+//                    apartmentsWithMostDefaults.add(apartmentId);
+//                }
+//            });
+//        });
+//
+//        return apartmentsWithMostDefaults;
+//
+//    }
+
+    public List<Integer> findApartmentsWithMostDefaults() {
+        List<Object[]> results = maintenanceRepository.findApartmentsWithMostDefaults();
+        return results.stream()
+                .map(result -> (Integer) result[0])
+                .collect(Collectors.toList());
+    }
+
+//    @PersistenceContext
+//    private EntityManager entityManager;
+//    public List<Object[]> findApartmentsWithMostDefaults() {
+//        String queryString = "SELECT m.apartment.id, COUNT(m.id) " +
+//                "FROM Maintenance m " +
+//                "WHERE m.status = :status " +
+//                "GROUP BY m.apartment.id " +
+//                "ORDER BY COUNT(m.id) DESC";
+//
+//        TypedQuery<Object[]> query = entityManager.createQuery(queryString, Object[].class);
+//        query.setParameter("status", Maintenance.Status.DEFAULTED);
+//
+//        // Set a limit on the number of results if needed
+//        // query.setMaxResults(10);
+//
+//        return query.getResultList();
 }
 

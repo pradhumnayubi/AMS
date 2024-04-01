@@ -1,6 +1,7 @@
 package com.example.ams.controller;
 
 
+import com.example.ams.entities.Apartment;
 import com.example.ams.entities.Maintenance;
 import com.example.ams.service.MaintenanceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/maintenances")
@@ -58,6 +60,17 @@ public class MaintenanceController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to create next month's maintenance records: " + e.getMessage());
         }
     }
+
+//    @GetMapping("/most-defaulted")
+//    public ResponseEntity<List<Object[]>> getApartmentsWithMostDefaults() {
+//        List<Object[]> results = maintenanceService.findApartmentsWithMostDefaults();
+//        return new ResponseEntity<>(results, HttpStatus.OK);
+//    }
+@GetMapping("/most-defaults")
+public ResponseEntity<List<Integer>> findApartmentsWithMostDefaults() {
+    List<Integer> apartmentIds = maintenanceService.findApartmentsWithMostDefaults();
+    return new ResponseEntity<>(apartmentIds, HttpStatus.OK);
+}
 
 
 }
